@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de tareas</title>
+
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Lista de tareas</h1>
+    </header>
+
+    <main>
+      <section class="registrar-tarea">
+        <input
+          id="tareaInput"
+          class="texto-tarea"
+          type="text"
+          placeholder="Agrega tu tarea"
+        />
+
+        <div class="dificultad">
+          <p>Dificultad</p>
+
+          <div class="opciones">
+            <div>
+              <input type="radio" name="dificultad" id="alta" /><label for="alta" class="alta">Alta</label>
+            </div>
+            <div>
+              <input type="radio" name="dificultad" id="media" /><label for="media" class="media">Media</label>
+            </div>
+            <div>
+              <input type="radio" name="dificultad" id="baja" /><label for="baja" class="baja">Baja</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="fecha-entrega">
+          <p>Fecha de entrega</p>
+          <input id="txtEntrega" type="datetime-local" />
+        </div>
+
+        <button id="btn-agregar" class="agregar-tarea">Agregar Tarea</button>
+      </section>
+      <section class="conenedor-tareas">
+        <ul id="lista" class="lista-tareas">
+          <li class="tarea alta">
+            <a href="#">Tarea 1</a>
+          </li>
+          <li class="tarea media">
+            <a href="#">Tarea 2</a>
+          </li>
+          <li class="tarea baja">
+            <a href="#">Tarea 3</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Hecho por </p>
+    </footer>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
