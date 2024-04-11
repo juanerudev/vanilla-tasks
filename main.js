@@ -3,7 +3,7 @@ const btnAgregarTarea = document.querySelector("#btn-agregar");
 const listaTareas = document.querySelector("#lista")
 const opciones = document.querySelectorAll('input[type="radio"]')
 
-
+let tareas = null;
 
 const agregarTarea = () => {
     const tareaTexto = tareaInput.value;
@@ -23,6 +23,9 @@ const agregarTarea = () => {
             const nuevaTarea = armarElemento(tareaTexto, opcion.id);
             listaTareas.appendChild(nuevaTarea)
             nuevaTarea.addEventListener("click", eliminarElemento)
+
+            guardarTarea(tareaInput.value);
+
             opcion.checked = false;
             tareaInput.value = "";
         }
@@ -36,6 +39,8 @@ const eliminarElemento = (e) => {
     else {
         e.target.parentNode.remove()
     }
+
+    eliminarTarea(e.target)
 }
 
 const armarElemento = (texto, dificultad) => {
@@ -66,5 +71,32 @@ const validarDificultad = () => {
 
     return algoSeleccionado;
 }
+
+const guardarTarea = (textoTarea) => {
+    tareas = obtenerTareas();
+    tareas.push(textoTarea);
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+}
+
+const obtenerTareas = () => {
+    const tareasAlmacenadas = (localStorage.getItem("tareas"));
+
+    if (tareasAlmacenadas) {
+        return JSON.parse(tareasAlmacenadas);
+    }
+    else {
+        return [];
+    }
+}
+
+const eliminarTarea = (elemento) => {
+    const textoElemento = elemento.outerText;
+    tareas = obtenerTareas();
+
+    const nuevoArray = tareas.filter((tarea) => tarea !== textoElemento);
+
+    localStorage.setItem("tareas", JSON.stringify(nuevoArray));
+}
+
 
 btnAgregarTarea.addEventListener("click", agregarTarea);
