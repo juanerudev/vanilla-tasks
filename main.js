@@ -23,6 +23,8 @@ const agregarTarea = () => {
             const nuevaTarea = armarElemento(tareaTexto, opcion.id);
             listaTareas.appendChild(nuevaTarea)
             nuevaTarea.addEventListener("click", eliminarElemento)
+            opcion.checked = false;
+            tareaInput.value = "";
         }
     });
 }
