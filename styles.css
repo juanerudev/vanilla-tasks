@@ -23,6 +23,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  max-height: 318px;
 }
 .registrar-tarea,
 .conenedor-tareas {

@@ -28,7 +28,12 @@ const agregarTarea = () => {
 }
 
 const eliminarElemento = (e) => {
-    e.target.remove()
+    if (e.target.nodeName == "LI") {
+        e.target.remove()
+    }
+    else {
+        e.target.parentNode.remove()
+    }
 }
 
 const armarElemento = (texto, dificultad) => {
