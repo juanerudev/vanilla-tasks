@@ -22,8 +22,13 @@ const agregarTarea = () => {
         if (opcion.checked) {
             const nuevaTarea = armarElemento(tareaTexto, opcion.id);
             listaTareas.appendChild(nuevaTarea)
+            nuevaTarea.addEventListener("click", eliminarElemento)
         }
     });
+}
+
+const eliminarElemento = (e) => {
+    e.target.remove()
 }
 
 const armarElemento = (texto, dificultad) => {
