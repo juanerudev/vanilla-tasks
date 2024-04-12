@@ -17,14 +17,21 @@ const agregarTarea = () => {
         alert("Debe seleccionar alguna dificultad...");
         return false;
     }
-    
+
     opciones.forEach(opcion => {
         if (opcion.checked) {
             const nuevaTarea = armarElemento(tareaTexto, opcion.id);
             listaTareas.appendChild(nuevaTarea)
             nuevaTarea.addEventListener("click", eliminarElemento)
 
-            guardarTarea(tareaInput.value);
+            // guardarTarea(tareaInput.value);
+
+            const objectTask = {
+                "descripcion": tareaTexto,
+                "dificultad": opcion.id,
+            }
+            
+            guardarTarea(objectTask);
 
             opcion.checked = false;
             tareaInput.value = "";
@@ -72,9 +79,9 @@ const validarDificultad = () => {
     return algoSeleccionado;
 }
 
-const guardarTarea = (textoTarea) => {
+const guardarTarea = (objTarea) => {
     tareas = obtenerTareas();
-    tareas.push(textoTarea);
+    tareas.push(objTarea);
     localStorage.setItem("tareas", JSON.stringify(tareas));
 }
 
@@ -93,10 +100,18 @@ const eliminarTarea = (elemento) => {
     const textoElemento = elemento.outerText;
     tareas = obtenerTareas();
 
-    const nuevoArray = tareas.filter((tarea) => tarea !== textoElemento);
+    const nuevoArray = tareas.filter((tarea) => tarea["descripcion"] !== textoElemento);
 
+    console.log(nuevoArray);
     localStorage.setItem("tareas", JSON.stringify(nuevoArray));
 }
 
 
 btnAgregarTarea.addEventListener("click", agregarTarea);
+
+const tareasCargadas = obtenerTareas();
+tareasCargadas.forEach(tarea => {
+    const tareaCargada = armarElemento(tarea.descripcion, tarea.dificultad);
+    listaTareas.appendChild(tareaCargada);
+    tareaCargada.addEventListener("click", eliminarElemento);
+});
