@@ -33,6 +33,8 @@ const agregarTarea = () => {
             
             guardarTarea(objectTask);
 
+            location.reload();
+            
             opcion.checked = false;
             tareaInput.value = "";
         }
@@ -106,12 +108,33 @@ const eliminarTarea = (elemento) => {
     localStorage.setItem("tareas", JSON.stringify(nuevoArray));
 }
 
+const ordenarPorDificultad = () => {
+    const tareas = obtenerTareas();
+
+    const altas = tareas.filter((tarea) => {
+        return tarea.dificultad === "alta";
+    })
+
+    const medias = tareas.filter((tarea) => {
+        return tarea.dificultad === "media";
+    })
+
+    const bajas = tareas.filter((tarea) => {
+        return tarea.dificultad === "baja";
+    })
+
+    const tareasOrdenadas = [...altas, ...medias, ...bajas];
+    return tareasOrdenadas;
+}
+
 
 btnAgregarTarea.addEventListener("click", agregarTarea);
 
 const tareasCargadas = obtenerTareas();
-tareasCargadas.forEach(tarea => {
-    const tareaCargada = armarElemento(tarea.descripcion, tarea.dificultad);
-    listaTareas.appendChild(tareaCargada);
-    tareaCargada.addEventListener("click", eliminarElemento);
+const tareasOrdenadas = ordenarPorDificultad(tareasCargadas);
+
+tareasOrdenadas.forEach(tarea => {
+    const tareaOrdenada = armarElemento(tarea.descripcion, tarea.dificultad);
+    listaTareas.appendChild(tareaOrdenada);
+    tareaOrdenada.addEventListener("click", eliminarElemento);
 });
